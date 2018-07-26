@@ -127,11 +127,15 @@ public class LabBonus20 {
 	// finds the low cost item from the cart and lists it
 	private static void lowCostItem(ArrayList<Double> itemCost) {
 		double lowCost=100;
-		for(double cost:itemCost) {
-			if(cost<lowCost) {
-				lowCost = cost;
+		if(!itemCost.isEmpty()) {
+			for(double cost:itemCost) {
+				if(cost<lowCost) {
+					lowCost = cost;
+				}
 			}
-		}
+		}else 
+			lowCost=0;
+			
 		System.out.printf("\nThe least expensive item in your cart costs $%.2f\n",lowCost);	
 	}
 
@@ -150,11 +154,15 @@ public class LabBonus20 {
 	// calculates the average price of items in the cart and prints it
 	private static void averagePriceOfItems(ArrayList<Double> itemCost) {
 		double averageCost=0, totalCost=0;
-		for(double cost: itemCost) {
-			totalCost += cost;
-		}
+		if(!itemCost.isEmpty()) {
+			for(double cost: itemCost) {
+				totalCost += cost;
+			}
+			averageCost = totalCost / itemCost.size();
+		}else
+			averageCost=0;
 		System.out.printf("\nTotal Cost $%.2f",totalCost);
-		averageCost = totalCost / itemCost.size();
+	
 		System.out.printf("\nThe average price of your cart is $%.2f",averageCost);
 	}
 
