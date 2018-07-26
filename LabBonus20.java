@@ -1,8 +1,17 @@
+/* @ Sasikaladevi Kumarasamy
+ * 
+ * 
+ * This program is a smaller version of a shopping cart. 
+ * You can list items, add items to shopping cart, view the cart, or quit.
+ * Used HashMap to store items and price and array list to store the items added to cart and 
+ * another array list to store the price of items, find average price of items in the cart, 
+ * highest price and lowest price in cart.
+ */
+
 package labbonus20;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -21,31 +30,32 @@ public class LabBonus20 {
 		ArrayList<Integer> itemQuantity = new ArrayList<>();
 		
 		
-		
+		System.out.println("Welcome to the Fruit market!\n~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		// call the fillInventory method to add initial items to the empty Map
 		inventory = fillInventory(inventory);
+		
 		while(!isValid) {
 			menuOptions();
 			try {
 			userChoice = Validator.getString(sc, "What can I do for you? ");
 			userOption = Integer.parseInt(userChoice);
 			if(userOption==1) {
-				printInventory(printItemFormat,inventory);	
+				printInventory(printItemFormat,inventory);	// prints the inventory
 				continue;
 			}else if(userOption==2) {
 				addItem(sc,inventory, itemList, itemcost, itemQuantity, "What would you like to add to your cart?  ");
 				sc.nextLine();
 				continue;
 			}else if(userOption==3) {
-				displayShoppingCart(printItemFormat, itemList, itemcost);	
-				averagePriceOfItems(itemcost);
-				highCostItem(itemcost);
-				lowCostItem(itemcost);
+				displayShoppingCart(printItemFormat, itemList, itemcost);	// display shopping cart
+				averagePriceOfItems(itemcost); //display the average price of items in the cart
+				highCostItem(itemcost); // display the highest cost item in the cart
+				lowCostItem(itemcost); // displays the lowest cost item in the cart
 				continue;
 			}else if(userOption ==4) {
 				break;
 			}
-			}catch(Exception ex) {
+			}catch(Exception ex) { // catches the InpustMisMatch Exception
 				System.out.println("Invalid input. Please try again.");
 				continue;
 			}
@@ -70,12 +80,15 @@ public class LabBonus20 {
 		
 	}
 	
+	
+	// displays the menu options the user can choose from
 	private static void menuOptions() {
 		System.out.println("\nMenu Options\n~~~~ ~~~~~~~");
 		System.out.println("1.List of items\n2.Add items to the cart\n3.Show the cart\n4.Quit\n");
 	}
 
 
+	// if the user wants to add an item to the cart, it validates if the item is available in the inventory or not and then adds it
 	private static void addItem(Scanner sc, Map<String, Double> inventory,
 				    				 ArrayList<String> itemList, ArrayList<Double> itemCost,ArrayList<Integer> itemQuantity, 
 				    				 String prompt) {
@@ -104,10 +117,10 @@ public class LabBonus20 {
 				addItem(sc, inventory, itemList, itemCost, itemQuantity,prompt);
 			}
 			
-			isValid = Validator.continueOrNot(sc, "Would you like to add more items? (y/n) : ", "[yY]");
+			isValid = Validator.continueOrNot(sc, "Would you like to add more items? (y/n) : ", "[yY]");// continue only if user agrees
 	
 		}
-		System.out.println("You have added "+count+" items to the cart!");
+		System.out.println("You have added "+count+" items to the cart!"); // prints number of items in the cart
 		//System.out.println("item) Quantity - "+itemQuantity);
 	}
 
@@ -173,6 +186,9 @@ public class LabBonus20 {
 		return inventory;
 		
 	}
+	
+	
+	// prints the items in the inventory by pulling Key-Value pair from the HashMap
 	private static void printInventory(String printItemFormat, Map<String,Double> inventory) {
 		System.out.printf("%s\t\t%s\n", "Item","Price");
 		System.out.printf("%s\t\t%s\n", "~~~~","~~~~~");
